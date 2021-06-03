@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\Webhooks\MessageBirdController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('conversations')->name('conversations.')->group(function () {
