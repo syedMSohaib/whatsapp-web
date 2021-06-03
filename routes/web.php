@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\Webhooks\MessageBirdController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
