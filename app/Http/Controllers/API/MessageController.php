@@ -11,6 +11,7 @@ use App\Services\ChatApi\MessageService;
 
 use App\Events\MessageSent;
 use http\Message;
+use Illuminate\Support\Str;
 
 /**
  * Class MessageController
@@ -52,9 +53,9 @@ class MessageController extends Controller {
 
             $file = $request->hasFile('file') ? $request->file('file') : $request->file('image');
 
-            $filename = microtime().".".$file->getClientOriginalExtension();
+            $filename = Str::random(10).".".$file->getClientOriginalExtension();
 
-            $new = $file->store('public');
+            $new = $file->storeAs('public', $filename);
 
             $path = asset("/storage/{$filename}");
 
