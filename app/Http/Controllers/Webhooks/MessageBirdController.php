@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
+use App\Events\MessageSent;
 
 /**
  * Class MessageBirdController
@@ -21,7 +22,8 @@ class MessageBirdController extends Controller {
      */
     public function index (Request $request)  {
         Log::info(request()->all());
-        dd(request()->all());
-        // dd($request->all());
+
+        broadcast(new MessageSent($conversation, $request->get('message')))->toOthers();
+
     }
 }

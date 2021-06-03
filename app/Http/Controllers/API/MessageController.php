@@ -67,7 +67,7 @@ class MessageController extends Controller {
 
         }
 
-        // broadcast(new MessageSent($conversation, $request->get('message')))->toOthers();
+        broadcast(new MessageSent($conversation, $request->get('message')))->toOthers();
 
         return response(['msg' => 'success', 'message' => $request->get('message'), 'file' => $path ], Response::HTTP_OK);
 
