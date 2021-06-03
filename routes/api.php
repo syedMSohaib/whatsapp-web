@@ -25,4 +25,4 @@ Route::prefix('conversations')->name('conversations.')->group(function () {
 
 
 
-Route::any('webhooks/message-bird', [MessageBirdController::class, 'invoke'])->name('webhooks.message-bird');
+Route::any('incomming-webhooks/message-bird', [MessageBirdController::class, 'index'])->name('webhooks.message-bird');
