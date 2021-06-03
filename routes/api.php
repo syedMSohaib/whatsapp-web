@@ -21,3 +21,7 @@ Route::prefix('conversations')->name('conversations.')->group(function () {
         Route::post('messages', [MessageController::class, 'send'])->name('send');
     });
 });
+
+
+
+Route::post('webhooks/message-bird', [MessageBirdController::class, 'invoke'])->name('webhooks.message-bird');
