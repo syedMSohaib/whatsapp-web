@@ -22,6 +22,6 @@ class MessageBirdController extends Controller {
     public function invoke (Request $request)  {
 
         Log::info($request->all());
-        dd($request->all());
+        // dd($request->all());
     }
 }
