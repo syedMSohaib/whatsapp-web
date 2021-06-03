@@ -10,6 +10,10 @@
 
         <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/4.6.0/css/bootstrap.min.css') }}">
 
+        <style>
+            .loading-indicator:before{content:'';background:#000000cc;position:fixed;width:100%;height:100%;top:0;left:0;z-index:10000000000}.loading-indicator:after{content:'Loading ...';position:fixed;width:100%;top:50%;left:0;z-index:10001;color:#fff;text-align:center;font-weight:700;font-size:1.5rem}.approve .dg-content:before{background:url("{{asset('/images/add-cat-popup.png')}}") no-repeat center !important}.reject .dg-content:before{background:url("{{asset('/images/block.png')}}") no-repeat center !important}.dg-content:before{background:url("{{asset('/images/block.png')}}") no-repeat center !important;}
+        </style>
+
         @yield('styles')
 
         <script>
