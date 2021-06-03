@@ -69,20 +69,15 @@ class MessageService extends ChatApiService {
      *
      * @return bool
      */
-    public function sendMediaFile($dialogId, $body, $file) {
+    public function sendMediaFile($dialogId, $body, $path) {
 
-        $filename = microtime().".".$file->getClientOriginalExtension();
-
-        $new = $file->store('public');
-
-        $path = asset("/storage/{$filename}");
 
         $requestBody = [
             'chatId' => $dialogId,
             "body" => $path,
             // "body" => "https://upload.wikimedia.org/wikipedia/ru/3/33/NatureCover2001.jpg",
             // "body" => "https://3f571131c0f4.ngrok.io/storage/yhf4SZiSVFUGG6nFwjMMeSs8bE3FwNorGocu9vZW.jpg",
-            "filename" => $filename,
+            "filename" => basename($path),
             "caption" => $body,
         ];
 

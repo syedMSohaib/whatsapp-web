@@ -46,10 +46,19 @@ class MessageController extends Controller {
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|Response
      */
     public function send (Request $request, string $conversation) {
+        $path = '';
 
         if($request->file('file') || $request->file('image')){
 
-            $message = $this->messageService->sendMediaFile($conversation, $request->get('message'), $request->file('file') ?? $request->file('image')  );
+            $file = $request->file('file') ?? $request->file('image');
+
+            $filename = microtime().".".$file->getClientOriginalExtension();
+
+            $new = $file->store('public');
+
+            $path = asset("/storage/{$filename}");
+
+            $message = $this->messageService->sendMediaFile($conversation, $request->get('message'), $path);
         }
         else{
 
@@ -59,7 +68,7 @@ class MessageController extends Controller {
 
         // broadcast(new MessageSent($conversation, $request->get('message')))->toOthers();
 
-        return response(['msg' => 'success', 'message' => $request->get('message')], Response::HTTP_OK);
+        return response(['msg' => 'success', 'message' => $request->get('message'), 'file' => $path ], Response::HTTP_OK);
 
     }
 }
