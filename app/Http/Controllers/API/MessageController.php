@@ -50,7 +50,7 @@ class MessageController extends Controller {
 
         if($request->file('file') || $request->file('image')){
 
-            $file = $request->file('file') ?? $request->file('image');
+            $file = $request->hasFile('file') ? $request->file('file') : $request->file('image');
 
             $filename = microtime().".".$file->getClientOriginalExtension();
 
