@@ -25,4 +25,5 @@ Route::prefix('conversations')->name('conversations.')->group(function () {
 
 
 
-Route::any('incomming-webhooks/message-bird', [MessageBirdController::class, 'index'])->name('webhooks.message-bird');
+Route::post('incomming-webhooks/message-bird', [
+    MessageBirdController::class, 'index'])->name('webhooks.message-bird');

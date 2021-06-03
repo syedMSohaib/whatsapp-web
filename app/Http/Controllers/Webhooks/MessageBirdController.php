@@ -20,8 +20,8 @@ class MessageBirdController extends Controller {
      * @return View
      */
     public function index (Request $request)  {
-
-        Log::info($request->all());
+        Log::info(request()->all());
+        dd(request()->all());
         // dd($request->all());
     }
 }

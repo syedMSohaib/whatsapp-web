@@ -34,4 +34,4 @@ Route::middleware('auth')->prefix('conversations')->name('conversations.')->grou
 });
 
 
-Route::post('webhooks/message-bird', [MessageBirdController::class, 'invoke'])->name('webhooks.message-bird');
+// Route::post('webhooks/message-bird', [MessageBirdController::class, 'invoke'])->name('webhooks.message-bird');
