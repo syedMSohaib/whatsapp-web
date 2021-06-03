@@ -19,7 +19,7 @@ class MessageBirdController extends Controller {
      *
      * @return View
      */
-    public function __invoke (Request $request) : View {
+    public function invoke (Request $request)  {
 
         Log::info($request->all());
         dd($request->all());
