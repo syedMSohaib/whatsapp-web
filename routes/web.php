@@ -31,3 +31,6 @@ Route::middleware('auth')->prefix('conversations')->name('conversations.')->grou
 
     Route::get('{conversation}', [ConversationController::class, 'show'])->name('show');
 });
+
+
+Route::post('webhooks/message-bird', [MessageBirdController::class])->name('webhooks.message-bird');

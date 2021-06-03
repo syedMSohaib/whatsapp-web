@@ -14,4 +14,4 @@
 use App\Http\Controllers\Webhooks\MessageBirdController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('message-bird', [MessageBirdController::class])->name('message-bird');
+// Route::post('message-bird', [MessageBirdController::class])->name('message-bird');
