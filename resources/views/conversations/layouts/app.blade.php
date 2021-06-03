@@ -22,7 +22,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
+            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>

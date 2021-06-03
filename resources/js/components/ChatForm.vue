@@ -3,10 +3,10 @@
   <div class="input-group">
     <input ref="fileselector" @change="handleMedia" type="file" style="display: none">
     <input ref="imageselector" @change="handleImage" type="file" accept="image/*" style="display: none">
-    <button @click="$refs.fileselector.click()" type="button">
+    <button class="btn btn-warning btn-sm" @click="$refs.fileselector.click()" type="button">
       File
     </button>
-    <button @click="$refs.imageselector.click()" type="button">
+    <button class="btn btn-warning ml-1 btn-sm" @click="$refs.imageselector.click()" type="button">
       Image
     </button>
 
@@ -20,7 +20,7 @@
   </div>
 
   <div class="bottom row">
-      
+
       <p v-if="image">{{image.name}}</p>
 
       <br>

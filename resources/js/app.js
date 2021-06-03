@@ -34,7 +34,7 @@ const app = new Vue({
 			let url = '/api/conversations/' + conversationId + '/messages';
 
 			axios.get(url).then(response => {
-				this.messages = response.data.messages;
+				this.messages = response.data.messages.reverse();
 			});
 		},
 
@@ -60,7 +60,7 @@ const app = new Vue({
 			this.messages.push({'body': message.message});
 
 			axios.post(url, formData).then(response => {
-				
+
 			})
 		}
 	}
