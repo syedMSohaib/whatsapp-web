@@ -46,9 +46,16 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+                $namespace = sprintf('%s\Webhooks', $this->namespace);
+
+            Route::prefix('webhooks')
+                ->name('webhooks.')
+                ->namespace($namespace)
+                ->group(base_path('routes/webhooks.php'));
         });
 
-        $this->mapWebhookRoutes();
+        // $this->mapWebhookRoutes();
 
     }
 
@@ -65,11 +72,6 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     protected function mapWebhookRoutes () {
-        $namespace = sprintf('%s\Webhooks', $this->namespace);
 
-        Route::prefix('webhooks')
-            ->name('webhooks.')
-            ->namespace($namespace)
-            ->group(base_path('routes/webhooks.php'));
     }
 }
