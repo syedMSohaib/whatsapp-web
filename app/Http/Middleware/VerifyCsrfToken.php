@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'webhooks/message-bird',
-        'chat-api-web-hook'
+        'chat-api-web-hook',
+        'broadcasting/auth'
     ];
 }

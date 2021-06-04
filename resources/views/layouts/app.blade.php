@@ -14,6 +14,7 @@
 
         <script>
 			window.Laravel = {!! json_encode([
+                'baseurl' => url('/'),
                 'csrfToken' => csrf_token(),
                 'pusherKey' => config('broadcasting.connections.pusher.key'),
                 'pusherCluster' => config('broadcasting.connections.pusher.options.cluster')

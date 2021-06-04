@@ -23,7 +23,8 @@ class MessageBirdController extends Controller {
     public function index (Request $request)  {
         Log::info(request()->all());
 
-        broadcast(new MessageSent($conversation, $request->get('message')))->toOthers();
-
+        foreach(request()->messages as $key => $message){
+            broadcast(new MessageSent($message['chatId'], $request->get('body'), $message))->toOthers();
+        }
     }
 }

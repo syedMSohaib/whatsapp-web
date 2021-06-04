@@ -1,36 +1,26 @@
 <template>
-<div>
-  <div class="input-group">
+<div class="type-message-bar">
     <input ref="fileselector" @change="handleMedia" type="file" style="display: none">
     <input ref="imageselector" @change="handleImage" type="file" accept="image/*" style="display: none">
-    <button class="btn btn-warning btn-sm" @click="$refs.fileselector.click()" type="button">
-      File
-    </button>
-    <button class="btn btn-warning ml-1 btn-sm" @click="$refs.imageselector.click()" type="button">
-      Image
-    </button>
 
-    <input id="btn-input" type="text" name="message" class="form-control input-sm" placeholder="Type your message here..." v-model="newMessage" @keyup.enter="sendMessage">
-
-    <span class="input-group-btn">
-            <button class="btn btn-primary btn-sm" id="btn-chat" @click="sendMessage">
-                Send
-            </button>
-        </span>
-  </div>
-
-  <div class="bottom row">
-
-      <p v-if="image">{{image.name}}</p>
-
-      <br>
-
-      <p v-if="file">{{file.name}}</p>
-
-
-  </div>
+    <div class="type-message-bar-left">
+        <img @click="$refs.imageselector.click()" :src="`${baseurl}/chat/images/camera-icon.svg`">
+        <img @click="$refs.fileselector.click()" :src="`${baseurl}/chat/images/attach-icon.svg`">
+    </div>
+    <div class="type-message-bar-center">
+        <input v-model="newMessage" @keyup.enter="sendMessage" type="text" placeholder="Type a message">
+    </div>
+    <div @click="sendMessage" class="type-message-bar-right">
+        <img :src="`${baseurl}/chat/images/play-audio-icon.svg`">
+    </div>
+    <div class="bottom row">
+        <p v-if="image">{{image.name}}</p>
+        <br>
+        <p v-if="file">{{file.name}}</p>
+    </div>
 
 </div>
+
 </template>
 
 
@@ -40,6 +30,7 @@ export default {
 
   data() {
     return {
+      baseurl: window.Laravel.baseurl,
       newMessage: '',
       file: '',
       image: '',

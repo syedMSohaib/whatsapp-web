@@ -25,15 +25,18 @@ class MessageSent implements ShouldBroadcast
 
     public $message;
 
+    public $payload;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct ($conversation, $message) {
+    public function __construct ($conversation, $message, $payload = []) {
         $this->sendername = 'matt';
         $this->conversation = $conversation;
         $this->message = $message;
+        $this->payload = $payload;
     }
 
     /**
@@ -44,4 +47,5 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn () {
         return new PrivateChannel('conversation');
     }
+
 }

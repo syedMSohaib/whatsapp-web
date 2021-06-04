@@ -1,51 +1,71 @@
 <template>
-  <ul class="chat">
-    <li class="left clearfix" v-for="(message, mid) in messages" :key="mid">
-      <div class="chat-body clearfix text-right" v-if="message.fromMe">
-
-        <p v-if="validURL(message.body)">
-
-          <img v-if="mime.includes(get_url_extension(message.body))" :src="message.body">
-          <a v-else :href="message.body">{{ message.body }}</a>
-        </p>
-        <p v-else v-text="message.body"></p>
-      </div>
-
-      <div class="chat-body clearfix pull-right" v-else-if="!message.fromMe">
-        <div class="header">
-          <strong class="primary-font">
-            {{ message.senderName }}
-          </strong>
+    <Fragment>
+    <div class="chat-window-header">
+        <div class="chat-window-header-left">
+            <img class="chat-window-contact-image" :src="conversation.image">
+            <div class="contact-name-and-status-container">
+                <span class="chat-window-contact-name">{{conversation.name}}</span>
+                <span class="chat-window-contact-status">Online</span>
+            </div>
         </div>
-        <p v-if="validURL(message.body)">
-          <img v-if="mime.includes(get_url_extension(message.body))" :src="message.body">
-          <a v-else :href="message.body">{{ message.body }}</a>
-        </p>
-        <p v-else v-text="message.body"></p>
-      </div>
-    </li>
-  </ul>
+    </div>
+    <div class="chat-window">
+
+
+        <div v-for="(message, mid) in messages" :key="mid" :class="message.fromMe ? 'sender' : 'receiver'">
+            <span class="sender-message-tail">
+                <img :src="`${baseurl}/chat/images/message-tail-sender.svg`"></span>
+            <span class="sender-message">{{ message.body }}</span>
+            <!-- <span class="message-time">21:32</span>
+            <span class="message-status"><img src="./images/double-check-seen.svg"></span> -->
+        </div>
+
+    </div>
+    <div class="type-message-bar">
+        <input ref="fileselector" @change="handleMedia" type="file" style="display: none">
+        <input ref="imageselector" @change="handleImage" type="file" accept="image/*" style="display: none">
+
+        <div class="type-message-bar-left">
+            <img @click="$refs.imageselector.click()" :src="`${baseurl}/chat/images/camera-icon.svg`">
+            <img @click="$refs.fileselector.click()" :src="`${baseurl}/chat/images/attach-icon.svg`">
+        </div>
+        <div class="type-message-bar-center">
+            <input v-model="newMessage" @keyup.enter="sendMessage" type="text" placeholder="Type a message">
+        </div>
+        <div @click="sendMessage" class="type-message-bar-right">
+            <img :src="`${baseurl}/chat/images/play-audio-icon.svg`">
+        </div>
+        <div class="bottom row">
+            <p v-if="image">{{image.name}}</p>
+            <br>
+            <p v-if="file">{{file.name}}</p>
+        </div>
+
+    </div>
+    </Fragment>
 </template>
 <style>
-    img {
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-    }
 </style>
 
 <script>
+import { Fragment } from 'vue-fragment'
 export default {
-  props: ['messages'],
+  props: ['messages', 'conversation'],
+  components: { Fragment },
   data() {
       return {
-          mime: ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
+            baseurl: window.Laravel.baseurl,
+            mime: ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
+            newMessage: '',
+            file: '',
+            image: '',
+
       }
   },
   mounted() {
-      window.onload = () => {
+      setTimeout( () => {
         $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
-      }
+      }, 1000);
   },
   methods: {
     validURL(str) {
@@ -65,7 +85,31 @@ export default {
     },
     get_url_extension( url ) {
         return url.split(/[#?]/)[0].split('.').pop().trim();
+    },
+    handleMedia(e){
+        this.file = e.target.files[0];
+    },
+    handleImage(e){
+        this.image = e.target.files[0];
+    },
+    sendMessage() {
+      this.$emit('messagesent', {
+        conversationId: this.conversation.id,
+        sendername: this.conversation.name,
+        message: this.newMessage,
+        file: this.file,
+        image: this.image,
+      });
+
+      this.newMessage = '';
+      this.image = '';
+      this.file = '';
     }
+  },
+  watch: {
+      'messages' : function(){
+            $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+      }
   }
 
 };

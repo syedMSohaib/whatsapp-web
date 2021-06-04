@@ -1,7 +1,37 @@
 @extends('conversations.layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('chat/css/styles.css') }}" />
+@endsection
+
+
+@section('scripts')
+    <script>
+        window.conversations = @json($conversations)
+    </script>
+
+@endsection
+
 @section('content')
-    <h2>Conversations</h2>
+
+<div id="app" class="grid">
+
+    <chat-user
+    v-on:conversation_obj="handleConversation"
+    :conversations="{{json_encode($conversations)}}"></chat-user>
+
+    <div v-if="conversation" class="main">
+        <chat-messages
+        v-on:messagesent="sendMessage"
+        :conversation="conversation" :messages="messages"></chat-messages>
+    </div>
+
+
+</div>
+
+
+
+    {{-- <h2>Conversations</h2>
 
     <div class="list-group">
         @forelse($conversations as $conversation)
@@ -12,5 +42,5 @@
         @empty
             No messages...
         @endforelse
-    </div>
+    </div> --}}
 @endsection

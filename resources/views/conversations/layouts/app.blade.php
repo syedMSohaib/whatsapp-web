@@ -18,6 +18,7 @@
 
         <script>
 			window.Laravel = {!! json_encode([
+                'baseurl' => url('/'),
                 'csrfToken' => csrf_token(),
                 'pusherKey' => config('broadcasting.connections.pusher.key'),
                 'pusherCluster' => config('broadcasting.connections.pusher.options.cluster')
@@ -38,7 +39,7 @@
                         <a class="nav-link" href="{{ route('conversations.index') }}">Conversations</a>
                     </li>
 
-                    <lin class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                             Logout
                         </a>
@@ -46,7 +47,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
-                    </lin>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -10,26 +10,48 @@ window.Vue = require('vue');
 
 Vue.component('chat-messages', require('./components/ChatMessages.vue'));
 Vue.component('chat-form', require('./components/ChatForm.vue'));
+Vue.component('chat-user', require('./components/ChatUser.vue'));
+import { Plugin } from 'vue-fragment'
+
 
 const app = new Vue({
 	el: '#app',
-
+    components: {
+        Plugin
+    },
 	data: {
-		messages: []
+        baseurl: window.Laravel.baseurl,
+		messages: [],
+        conversation: '',
 	},
 
 	created() {
 		this.fetchMessages();
 
-		Echo.private('conversation')
-		.listen('MessageSent', (e) => {
-			console.log(e);
-		});
+		window.Echo.private('conversation')
+            .listen('MessageSent', (e) => {
+                console.log('MessageSent', e);
+            });
 	},
+    mounted(){
+		window.Echo.private('conversation')
+            .listen('messagesent', (e) => {
+                console.log('messagesent', e);
+            });
+        // console.log("mounted");
+        // Echo.join('conversation')
+        // .listen('MessageSent', (event) => {
+        //     console.log(event);
+        // });
 
+    },
 	methods: {
-		fetchMessages() {
-			let conversationId = localStorage.getItem('conversation-id');
+        handleConversation(data){
+            this.conversation = data;
+            // console.log('data', data);
+            this.fetchMessages(data.id);
+        },
+		fetchMessages(conversationId) {
 
 			let url = '/api/conversations/' + conversationId + '/messages';
 
@@ -39,9 +61,8 @@ const app = new Vue({
 		},
 
 		sendMessage(message) {
-			let conversationId = localStorage.getItem('conversation-id');
 
-			console.log(message);
+            let conversationId = message.conversationId;
 
 			let formData = new FormData();
 
@@ -53,11 +74,10 @@ const app = new Vue({
 
 			let url = '/api/conversations/' + conversationId + '/messages';
 
-			// console.log(message);
-
-			// let data = {'message': message.message};
-
-			this.messages.push({'body': message.message});
+			this.messages.push({
+                'body': message.message,
+                'fromMe': true,
+            });
 
 			axios.post(url, formData).then(response => {
 
@@ -66,12 +86,13 @@ const app = new Vue({
 	}
 });
 
-Echo.private('conversation').listen('MessageSent', (e) => {
-	// console.log(e);
+window.Echo.join('conversation').listen('MessageSent', (e) => {
 
-	this.messages.push({
-		sendername: e.sendername,
-		conversation: e.conversation,
-		message: e.message.message
-	})
+    console.log(e);
+
+	// this.messages.push({
+	// 	sendername: e.sendername,
+	// 	conversation: e.conversation,
+	// 	message: e.message.message
+	// })
 })

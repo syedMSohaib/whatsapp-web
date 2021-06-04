@@ -11,14 +11,22 @@
 |
 */
 
+use App\Events\MessageSent;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\Webhooks\MessageBirdController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+
+Broadcast::routes(['middleware' => 'auth']);
+
 
 Auth::routes();
 
 Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/home', function () {
     return view('welcome');
 });
 
