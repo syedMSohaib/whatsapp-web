@@ -22,14 +22,30 @@ const app = new Vue({
 	data: {
         baseurl: window.Laravel.baseurl,
 		messages: [],
-        conversation: '',
+        conversation: undefined,
 	},
 
 	created() {
 		this.fetchMessages();
 
+
 		window.Echo.private('conversation')
             .listen('MessageSent', (e) => {
+                if(!this.conversation) {
+                    this.setCounter(e.conversation);
+                }
+                else{
+                    if(this.conversation.id == e.conversation) {
+                        this.messages.push({
+                            'body': e.payload.body,
+                            'fromMe': false,
+                        });
+                    }
+                    else{
+                        this.setCounter(e.conversation);
+                    }
+                }
+
                 console.log('MessageSent', e);
             });
 	},
@@ -46,6 +62,11 @@ const app = new Vue({
 
     },
 	methods: {
+        setCounter(conversation){
+            let elem = document.getElementById(conversation);
+            elem.textContent = Number(elem.textContent) + 1;
+            elem.style.display = 'block';
+        },
         handleConversation(data){
             this.conversation = data;
             // console.log('data', data);
@@ -56,7 +77,7 @@ const app = new Vue({
 			let url = '/api/conversations/' + conversationId + '/messages';
 
 			axios.get(url).then(response => {
-				this.messages = response.data.messages.reverse();
+				this.messages = response.data.messages;
 			});
 		},
 

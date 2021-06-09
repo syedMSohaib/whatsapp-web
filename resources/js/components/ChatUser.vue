@@ -38,10 +38,7 @@
                     <span class="chat-message-typing"></span>
                   </div>
                   <div class="chat-right-bottom-right">
-                    <!-- <span class="unread-messages-number">3</span>
-                    <span class="chat-options">
-                      <img :src="`${baseurl}/chat/images/down-arrow.svg`" />
-                    </span> -->
+                    <span style="display:none" :id="conversation.id" class="unread-messages-number"></span>
                   </div>
                 </div>
               </div>
@@ -57,16 +54,18 @@ export default {
   props: ['conversations'],
   data() {
     return {
-        baseurl: window.Laravel.baseurl
+        baseurl: window.Laravel.baseurl,
+        current_conversation_id: undefined,
     }
   },
   methods: {
         chatWith(conversation){
             console.log("Setting Conversation ID: "+conversation.id);
+            this.current_conversation_id = conversation.id;
             this.$emit('conversation_obj', {
                 id: conversation.id,
                 name: conversation.name,
-                image: conversation.image ||  `${baseurl}/chat/images/placeholder-image.svg`
+                image: conversation.image ||  `${this.baseurl}/chat/images/placeholder-image.svg`
             });
         }
   }
