@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar">
+    <div class="sidebar" style="min-width: 300px;">
           <div class="sidebar-header">
             <img :src="`${baseurl}/chat/images/placeholder-image.svg`" />
             <div class="sidebar-header-icons">

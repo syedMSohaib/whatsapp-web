@@ -25,6 +25,9 @@
         v-on:messagesent="sendMessage"
         :conversation="conversation" :messages="messages"></chat-messages>
     </div>
+    <div v-else  class="main">
+        <chat-messages-empty />
+    </div>
 
 
 </div>

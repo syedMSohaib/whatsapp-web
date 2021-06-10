@@ -42,7 +42,7 @@ let authEndpoint = "http://localhost:8000/broadcasting/auth";
 
 if(process.env.NODE_ENV == 'production')
 {
-    authEndpoint = "https://dev.nytrotech.net/whatsapp-web/broadcasting/auth";
+    authEndpoint = "https://dev.oxontech.de/whatsapp-web/broadcasting/auth";
     window.axios.defaults.baseURL =  '/whatsapp-web';
 }
 else
@@ -64,7 +64,7 @@ window.Echo = new Echo({
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: window.location.hostname,
     wsPort: 6001,
-    wssHost: "dev.nytrotech.net",
+    wssHost: "dev.oxontech.de",
     wssPort: 6001,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
