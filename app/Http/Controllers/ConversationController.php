@@ -59,12 +59,15 @@ class ConversationController extends Controller {
      */
     public function show (string $conversation) : View {
         $conversation = $this->dialogService->get($conversation);
-//        $conversationMessages = $this->messageService->all($conversation['id']);
-
         return view('conversations.show')
             ->with([
                 'conversation' => $conversation,
-//                'messages'     => $conversationMessages
             ]);
+    }
+
+
+    public function getConversations(){
+        return $this->dialogService->all();
+
     }
 }

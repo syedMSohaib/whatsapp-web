@@ -62,7 +62,8 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
+    wsHost: 'localhost',
+    // wsHost: window.location.hostname,
     wsPort: 6001,
     wssHost: "whatsapp.oxontech.de",
     wssPort: 6001,

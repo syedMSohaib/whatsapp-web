@@ -50,6 +50,7 @@
 
 
 <script>
+import EventBus from "../EventBus";
 export default {
   props: ['conversations'],
   data() {
@@ -58,10 +59,23 @@ export default {
         current_conversation_id: undefined,
     }
   },
+  mounted () {
+    EventBus.$on('UPDATE_CONVERSATIONS', (payload) => {
+        console.log('UPDATE_CONVERSATIONS', payload);
+        this.conversations = payload;
+    })
+  },
   methods: {
+        clearCounter(conversation){
+            let elem = document.getElementById(conversation);
+            if(!elem) return;
+            elem.textContent = 0;
+            elem.style.display = 'none';
+        },
         chatWith(conversation){
             console.log("Setting Conversation ID: "+conversation.id);
             this.current_conversation_id = conversation.id;
+            this.clearCounter();
             this.$emit('conversation_obj', {
                 id: conversation.id,
                 name: conversation.name,

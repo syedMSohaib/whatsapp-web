@@ -32,10 +32,11 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct ($conversation, $message, $payload = []) {
+    public function __construct ($conversation, $message, $payload = [], $fromme = false) {
         $this->sendername = 'matt';
         $this->conversation = $conversation;
         $this->message = $message;
+        $payload['fromme'] = $fromme;
         $this->payload = $payload;
     }
 

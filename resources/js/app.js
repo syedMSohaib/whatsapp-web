@@ -13,6 +13,7 @@ Vue.component('chat-messages', require('./components/ChatMessages.vue'));
 Vue.component('chat-form', require('./components/ChatForm.vue'));
 Vue.component('chat-user', require('./components/ChatUser.vue'));
 import { Plugin } from 'vue-fragment'
+import EventBus from './EventBus';
 
 
 const app = new Vue({
@@ -32,6 +33,7 @@ const app = new Vue({
 
 		window.Echo.private('conversation')
             .listen('MessageSent', (e) => {
+                console.log(e);
                 if(!this.conversation) {
                     this.setCounter(e.conversation);
                 }
@@ -39,7 +41,7 @@ const app = new Vue({
                     if(this.conversation.id == e.conversation) {
                         this.messages.push({
                             'body': e.payload.body,
-                            'fromMe': false,
+                            'fromMe': e.payload.fromMe,
                         });
                     }
                     else{
@@ -55,16 +57,19 @@ const app = new Vue({
             .listen('messagesent', (e) => {
                 console.log('messagesent', e);
             });
-        // console.log("mounted");
-        // Echo.join('conversation')
-        // .listen('MessageSent', (event) => {
-        //     console.log(event);
-        // });
+
+        // setTimeout(() => {
+        //     this.fetchConversations();
+        // }, 10000);
 
     },
 	methods: {
         setCounter(conversation){
             let elem = document.getElementById(conversation);
+            if(!elem) {
+                this.fetchConversations();
+                return;
+            }
             elem.textContent = Number(elem.textContent) + 1;
             elem.style.display = 'block';
         },
@@ -82,6 +87,19 @@ const app = new Vue({
 			});
 		},
 
+        fetchConversations(){
+            console.log('======= fetching conversations =======');
+
+			let url = '/api/conversations/all';
+
+			axios.get(url).then(response => {
+                EventBus.$emit('UPDATE_CONVERSATIONS', response.data);
+                this.conversations = response.data;
+
+            });
+
+
+        },
 		sendMessage(message) {
 
             let conversationId = message.conversationId;
@@ -96,10 +114,10 @@ const app = new Vue({
 
 			let url = '/api/conversations/' + conversationId + '/messages';
 
-			this.messages.push({
-                'body': message.message,
-                'fromMe': true,
-            });
+			// this.messages.push({
+            //     'body': message.message,
+            //     'fromMe': true,
+            // });
 
 			axios.post(url, formData).then(response => {
 

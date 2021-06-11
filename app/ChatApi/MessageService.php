@@ -20,6 +20,7 @@ class MessageService extends ChatApiService {
     public function all (string $dialog) : array {
         $params = [
             'chatId' => $dialog,
+            'last' => true,
         ];
 
         $response = $this->getRequest('messages', $params);

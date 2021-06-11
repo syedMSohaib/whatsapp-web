@@ -12,11 +12,16 @@
 */
 
 use App\Http\Controllers\API\MessageController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\Webhooks\MessageBirdController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('conversations')->name('conversations.')->group(function () {
+
+    Route::get('all', [ConversationController::class, 'getConversations'])->name('getConversations');
+
     Route::prefix('{conversation}')->group(function () {
+
         Route::get('messages', [MessageController::class, 'get'])->name('get');
 
         Route::post('messages', [MessageController::class, 'send'])->name('send');

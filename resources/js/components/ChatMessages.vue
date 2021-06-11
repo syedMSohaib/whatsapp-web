@@ -13,11 +13,19 @@
 
 
         <div v-for="(message, mid) in messages" :key="mid" :class="message.fromMe ? 'sender' : 'receiver'">
-            <span class="sender-message-tail">
-                <img :src="`${baseurl}/chat/images/message-tail-sender.svg`"></span>
-            <span class="sender-message">{{ message.body }}</span>
-            <!-- <span class="message-time">21:32</span>
-            <span class="message-status"><img src="./images/double-check-seen.svg"></span> -->
+
+            <div v-if="validURL(message.body)" class="image-message">
+                <span :class="message.fromMe ? 'sender-message' : 'receiver-message'">
+                    <img v-if="checkImageURL(message.body)"  :src="message.body">
+                    <a v-else target="_blank" :href="message.body">{{message.body}}</a>
+                </span>
+                <!-- <span class="message-time">21:36</span> -->
+            </div>
+            <fragment v-else>
+                <span class="sender-message-tail">
+                    <img :src="`${baseurl}/chat/images/message-tail-sender.svg`"></span>
+                <span class="sender-message">{{ message.body }}</span>
+            </fragment>
         </div>
 
     </div>
@@ -82,6 +90,9 @@ export default {
             console.log(this.get_url_extension(str));
 
         return result;
+    },
+    checkImageURL(url) {
+        return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
     },
     get_url_extension( url ) {
         return url.split(/[#?]/)[0].split('.').pop().trim();
