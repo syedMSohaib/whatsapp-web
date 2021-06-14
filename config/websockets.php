@@ -110,24 +110,28 @@ return [
      * You can see all available options at: http://php.net/manual/en/context.ssl.php
      */
     'ssl' => [
+        'verify_peer' => false,
+
+        'allow_self_signed' => true,
+
         /*
          * Path to local certificate file on filesystem. It must be a PEM encoded file which
          * contains your certificate and private key. It can optionally contain the
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+        'local_cert' => "/home/production/whatsapp/fullchain.pem",
 
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
+        'local_pk' => "/home/production/whatsapp/privkey.pem",
 
         /*
          * Passphrase for your local_cert file.
          */
-        'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
+        'passphrase' => "",
     ],
 
     /*
