@@ -1,5 +1,5 @@
 <template>
-    <Fragment>
+    <div>
     <div class="chat-window-header">
         <div class="chat-window-header-left">
             <img class="chat-window-contact-image" :src="conversation.image">
@@ -52,7 +52,7 @@
         </div>
 
     </div>
-    </Fragment>
+    </div>
 </template>
 <style>
 </style>
