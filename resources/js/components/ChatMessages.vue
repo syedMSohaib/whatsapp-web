@@ -20,11 +20,11 @@
                 </span>
                 <!-- <span class="message-time">21:36</span> -->
             </div>
-            <fragment v-else>
+            <div v-else>
                 <span class="sender-message-tail">
                     <img :src="`${baseurl}/chat/images/message-tail-sender.svg`"></span>
                 <span class="sender-message">{{ message.body }}</span>
-            </fragment>
+            </div>
             <span class="message-time">
                 <timeago :datetime="new Date(message.time * 1000)"></timeago>
             </span>
