@@ -26,7 +26,7 @@
         </script>
     </head>
     <body>
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        {{-- <nav class="navbar navbar-expand-md bg-dark navbar-dark">
             <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -50,11 +50,9 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav> --}}
 
-        <br>
-
-        <div class="container">
+        <div class="container-fluid p-0">
             @yield('content')
         </div>
 

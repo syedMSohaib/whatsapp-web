@@ -14,7 +14,18 @@ Vue.component('chat-form', require('./components/ChatForm.vue'));
 Vue.component('chat-user', require('./components/ChatUser.vue'));
 import { Plugin } from 'vue-fragment'
 import EventBus from './EventBus';
+import VueTimeago from 'vue-timeago'
 
+Vue.use(VueTimeago, {
+    name: 'Timeago', // Component name, `Timeago` by default
+    locale: 'en', // Default locale
+    // We use `date-fns` under the hood
+    // So you can use all locales from it
+    locales: {
+      'zh-CN': require('date-fns/locale/zh_cn'),
+      ja: require('date-fns/locale/ja')
+    }
+})
 
 const app = new Vue({
 	el: '#app',
@@ -43,6 +54,11 @@ const app = new Vue({
                             'body': e.payload.body,
                             'fromMe': e.payload.fromMe,
                         });
+
+                        setTimeout( () => {
+                            $(".chat-window").scrollTop($(".chat-window")[0].scrollHeight);
+                        }, 500);
+
                     }
                     else{
                         this.setCounter(e.conversation);
@@ -84,6 +100,11 @@ const app = new Vue({
 
 			axios.get(url).then(response => {
 				this.messages = response.data.messages;
+
+                setTimeout( () => {
+                    $(".chat-window").scrollTop($(".chat-window")[0].scrollHeight);
+                }, 500);
+
 			});
 		},
 

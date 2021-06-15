@@ -101,6 +101,8 @@ a {
   grid-column: 1 / 2;
   background: var(--white);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* Sidebar header */
@@ -213,11 +215,14 @@ a {
 
 /* Chats */
 .chats {
-  height: 48rem;
+  height: 65%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-
+.dummy-bg{
+    height: 60px;
+    background: #e5ddd5;
+}
 .chats::-webkit-scrollbar {
   width: 0.7rem;
   height: 3rem;
@@ -372,9 +377,8 @@ a {
 
 .main {
   grid-column: 2 / -1;
-  background: var(--chat-window-beige);
   position: relative;
-  height: 100vh;
+  height: 100%;
 }
 
 /* Main chat window header */
@@ -386,6 +390,11 @@ a {
   padding: 1rem 2rem;
   background: var(--sidebar-header);
   cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  width: 100%;
 }
 
 .chat-window-header-left {
@@ -424,7 +433,8 @@ a {
   border-radius: 50%;
   box-shadow: 0 0 1px 8px var(--box-shadow-color);
 }
-
+div#app {
+}
 /* Chat window */
 
 .chat-window {
@@ -432,10 +442,12 @@ a {
   flex-direction: column;
   padding: 10rem 10rem 6rem 10rem;
   /* height: 62rem; */
-  height: 100vh;
+  height: 90vh;
   overflow: scroll;
   overflow-x: hidden;
   background: url(../images/bg-chat.png);
+  background: var(--chat-window-beige);
+
   background-repeat: repeat;
 }
 
@@ -488,7 +500,8 @@ a {
 
 .image-message {
   width: 33rem;
-  height: 33rem;
+  height: auto;
+  /* height: 33rem; */
   position: relative;
   padding: 0.5rem;
   cursor: pointer;
@@ -504,6 +517,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .image-message .message-time {
@@ -614,16 +628,19 @@ input[type="range"] {
 
 /* Type message bar */
 .type-message-bar {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  background: var(--type-message-bar);
-  padding: 1rem 2rem;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 999;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    background: var(--type-message-bar);
+    padding: 1rem 3rem;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    overflow: hidden;
+}button#dropdownMenuButton {
+    border: none;
 }
 
 .type-message-bar img {

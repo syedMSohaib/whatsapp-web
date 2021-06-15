@@ -42,5 +42,9 @@ Route::middleware('auth')->prefix('conversations')->name('conversations.')->grou
 });
 
 
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/login');
+});
 
 Route::post('chat-api-web-hook', [MessageBirdController::class, 'index'])->name('message-bird');

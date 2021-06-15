@@ -11,13 +11,12 @@
     </div>
     <div class="chat-window">
 
-
         <div v-for="(message, mid) in messages" :key="mid" :class="message.fromMe ? 'sender' : 'receiver'">
 
             <div v-if="validURL(message.body)" class="image-message">
                 <span :class="message.fromMe ? 'sender-message' : 'receiver-message'">
                     <img v-if="checkImageURL(message.body)"  :src="message.body">
-                    <a v-else target="_blank" :href="message.body">{{message.body}}</a>
+                    <a v-else style="color: #039be5" target="_blank" :href="message.body">{{message.body}}</a>
                 </span>
                 <!-- <span class="message-time">21:36</span> -->
             </div>
@@ -26,6 +25,9 @@
                     <img :src="`${baseurl}/chat/images/message-tail-sender.svg`"></span>
                 <span class="sender-message">{{ message.body }}</span>
             </fragment>
+            <span class="message-time">
+                <timeago :datetime="new Date(message.time * 1000)"></timeago>
+            </span>
         </div>
 
     </div>
@@ -72,7 +74,7 @@ export default {
   },
   mounted() {
       setTimeout( () => {
-        $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+        $(".chat-window").scrollTop($(".chat-window")[0].scrollHeight);
       }, 1000);
   },
   methods: {
@@ -86,8 +88,8 @@ export default {
 
         let result = !!pattern.test(str);
 
-        if(result)
-            console.log(this.get_url_extension(str));
+        // if(result)
+        //     console.log(this.get_url_extension(str));
 
         return result;
     },
@@ -119,7 +121,7 @@ export default {
   },
   watch: {
       'messages' : function(){
-            $(".panel-body").scrollTop($(".panel-body")[0].scrollHeight);
+        $(".chat-window").scrollTop($(".chat-window")[0].scrollHeight);
       }
   }
 

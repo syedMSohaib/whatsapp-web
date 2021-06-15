@@ -28,19 +28,19 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
+            <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            {{-- <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('conversations.index') }}">Conversations</a>
                     </li>
 
-                    <lin class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                             Logout
                         </a>
@@ -48,9 +48,9 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
-                    </lin>
+                    </li>
                 </ul>
-            </div>
+            </div> --}}
         </nav>
 
         <br>

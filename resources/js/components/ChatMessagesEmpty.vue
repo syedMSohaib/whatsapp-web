@@ -1,10 +1,10 @@
 <template>
     <div>
-    <div class="chat-window">
+        <div class="chat-window">
+        </div>
+        <div class="dummy-bg">
 
-
-
-    </div>
+        </div>
     </div>
 </template>
 <style>
