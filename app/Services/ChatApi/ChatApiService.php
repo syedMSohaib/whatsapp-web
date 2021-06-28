@@ -4,6 +4,9 @@ namespace App\Services\ChatApi;
 
 use GuzzleHttp\Client as GuzzleClient;
 
+use App\Exceptions\ArchiveConversationFailureException;
+use App\Exceptions\UnarchiveConversationFailureException;
+
 /**
  * Class ChatApiService
  *
@@ -84,5 +87,45 @@ class ChatApiService {
         $params['token'] = $this->token;
 
         return $this->http->post($endpoint, ['query' => $params, 'json' => $body]);
+    }
+
+    /**
+     * @param int $conversation_id
+     * @throws ArchiveConversationFailureException
+    */
+    public function archive(int $conversation_id)
+    {
+        $response = $this->getRequest("archiveChat", [
+            "token" => $this->token
+        ]);
+
+        $responseStatusCode = $response->getStatusCode();
+
+        if (! $responseStatusCode === 200) {
+            throw new ArchiveConversationFailureException(
+                "The conversation cannot be archived",
+                $responseStatusCode
+            );
+        }
+    }
+
+    /**
+     * @param int $conversation_id
+     * @throws UnarchiveConversationFailureException
+    */
+    public function unarchive(int $conversation_id)
+    {
+        $response = $this->getRequest("unarchiveChat", [
+            "token" => $this->token
+        ]);
+
+        $responseStatusCode = $response->getStatusCode();
+
+        if (! $responseStatusCode === 200) {
+            throw new UnarchiveConversationFailureException(
+                "The conversation cannot be unarchived", 
+                $responseStatusCode
+            );
+        }
     }
 }
