@@ -96,7 +96,8 @@ class ChatApiService {
     public function archive(int $conversation_id)
     {
         $response = $this->getRequest("archiveChat", [
-            "token" => $this->token
+            "token" => $this->token,
+            "chat_id" => $conversation_id
         ]);
 
         $responseStatusCode = $response->getStatusCode();
@@ -116,7 +117,8 @@ class ChatApiService {
     public function unarchive(int $conversation_id)
     {
         $response = $this->getRequest("unarchiveChat", [
-            "token" => $this->token
+            "token" => $this->token,
+            "chat_id" => $conversation_id
         ]);
 
         $responseStatusCode = $response->getStatusCode();
