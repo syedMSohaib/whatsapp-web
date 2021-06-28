@@ -78,9 +78,12 @@ class ConversationController extends Controller {
         try {
             $this->dialogService->archive($conversation_id);
 
-            return response()->json(["status" => "success"], 200);
+            return response()->json(["success" => true], 200);
         } catch (ArchiveConversationFailureException $exception) {
-            return response()->json(["status" => "failure"], $exception->getStatusCode());
+            return response()->json([
+                "status" => "failure",
+                "error" => $exception->getMessage()
+            ], $exception->getCode());
         }
     }
 
@@ -89,9 +92,12 @@ class ConversationController extends Controller {
         try {
             $this->dialogService->unarchive($conversation_id);
 
-            return response()->json(["status" => "success"], 200);
+            return response()->json(["success" => true], 200);
         } catch (UnarchiveConversationFailureException $exception) {
-            return response()->json(["status" => "failure"], $exception->getStatusCode());
+            return response()->json([
+                "success" => false,
+                "error" => $exception->getMessage()
+            ], $exception->getCode());
         }
     }
 }
