@@ -73,7 +73,7 @@ class ConversationController extends Controller {
 
     }
 
-    public function archiveConversation(int $conversation_id)
+    public function archiveConversation(string $conversation_id)
     {
         try {
             $this->dialogService->archive($conversation_id);
@@ -87,7 +87,7 @@ class ConversationController extends Controller {
         }
     }
 
-    public function unarchiveConversation(int $conversation_id)
+    public function unarchiveConversation(string $conversation_id)
     {
         try {
             $this->dialogService->unarchive($conversation_id);

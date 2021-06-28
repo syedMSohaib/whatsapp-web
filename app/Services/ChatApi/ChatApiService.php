@@ -90,10 +90,10 @@ class ChatApiService {
     }
 
     /**
-     * @param int $conversation_id
+     * @param string $conversation_id
      * @throws ArchiveConversationFailureException
     */
-    public function archive(int $conversation_id)
+    public function archive(string $conversation_id)
     {
         $response = $this->getRequest("archiveChat", [
             "token" => $this->token,
@@ -111,10 +111,10 @@ class ChatApiService {
     }
 
     /**
-     * @param int $conversation_id
+     * @param string $conversation_id
      * @throws UnarchiveConversationFailureException
     */
-    public function unarchive(int $conversation_id)
+    public function unarchive(string $conversation_id)
     {
         $response = $this->getRequest("unarchiveChat", [
             "token" => $this->token,
