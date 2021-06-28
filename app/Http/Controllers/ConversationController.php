@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ArchiveConversationFailureException;
+use App\Exceptions\UnarchiveConversationFailureException;
 use Illuminate\View\View;
 
 use App\Services\ChatApi\DialogService;
@@ -69,5 +71,27 @@ class ConversationController extends Controller {
     public function getConversations(){
         return $this->dialogService->all();
 
+    }
+
+    public function archiveConversation(int $conversation_id)
+    {
+        try {
+            $this->dialogService->archive($conversation_id);
+
+            return response()->json(["status" => "success"], 200);
+        } catch (ArchiveConversationFailureException $exception) {
+            return response()->json(["status" => "failure"], $exception->getStatusCode());
+        }
+    }
+
+    public function unarchiveConversation(int $conversation_id)
+    {
+        try {
+            $this->dialogService->unarchive($conversation_id);
+
+            return response()->json(["status" => "success"], 200);
+        } catch (UnarchiveConversationFailureException $exception) {
+            return response()->json(["status" => "failure"], $exception->getStatusCode());
+        }
     }
 }
