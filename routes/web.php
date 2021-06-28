@@ -40,7 +40,7 @@ Route::middleware('auth')->prefix('conversations')->name('conversations.')->grou
 
     Route::get('{conversation}', [ConversationController::class, 'show'])->name('show');
 
-    Route::get('/{conversation_id}/archive/', [ConversationController::class, 'arhiveConversation'])
+    Route::get('/{conversation_id}/archive/', [ConversationController::class, 'archiveConversation'])
         ->name('archive-conversation');
 
     Route::get('/{conversation_id}/unarchive', [ConversationController::class, 'unarchiveConversation'])
